@@ -21,7 +21,8 @@ import {
   ToolbarItem
 } from '@patternfly/react-core';
 import { Table, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
-import { BellIcon, FilterIcon, OutlinedWindowRestoreIcon } from '@patternfly/react-icons';
+import { AngleDoubleRightIcon, BellIcon, FilterIcon, OutlinedWindowRestoreIcon } from '@patternfly/react-icons';
+import { HelpPanelContext } from '@app/AppLayout/AppLayout';
 
 interface AlertRow {
   eventType: string;
@@ -34,6 +35,7 @@ interface AlertRow {
 const AlertManager: React.FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const helpPanelContext = React.useContext(HelpPanelContext);
   
   // Initialize search value from URL parameters
   const searchParams = new URLSearchParams(location.search);
@@ -243,12 +245,13 @@ const AlertManager: React.FunctionComponent = () => {
                   <Button
                     variant="link"
                     isInline
-                    icon={<OutlinedWindowRestoreIcon />}
+                    icon={<AngleDoubleRightIcon />}
                     iconPosition="end"
-                    component="a"
-                    href="https://docs.redhat.com/en/documentation/red_hat_hybrid_cloud_console/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => {
+                      if (helpPanelContext) {
+                        helpPanelContext.openHelpPanelWithTab('Alert manager');
+                      }
+                    }}
                   >
                     Learn more
                   </Button>

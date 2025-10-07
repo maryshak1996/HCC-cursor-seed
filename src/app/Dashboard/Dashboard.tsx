@@ -24,10 +24,12 @@ import {
   Title
 } from '@patternfly/react-core';
 import { Table, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
-import { BellIcon, CogIcon, EnvelopeIcon, ExternalLinkAltIcon, IntegrationIcon, OutlinedWindowRestoreIcon, PlusCircleIcon, UserIcon, UsersIcon } from '@patternfly/react-icons';
+import { ArrowRightIcon, BellIcon, CogIcon, EnvelopeIcon, ExternalLinkAltIcon, IntegrationIcon, OutlinedWindowRestoreIcon, PlusCircleIcon, UserIcon, UsersIcon } from '@patternfly/react-icons';
+import { HelpPanelContext } from '@app/AppLayout/AppLayout';
 
 const Dashboard: React.FunctionComponent = () => {
   const navigate = useNavigate();
+  const helpPanelContext = React.useContext(HelpPanelContext);
   const [activeTabKey, setActiveTabKey] = React.useState<string | number>(0);
   const [alertNotifiersTabKey, setAlertNotifiersTabKey] = React.useState<string | number>(0);
   const [expandedAccordionItems, setExpandedAccordionItems] = React.useState<{[key: string]: boolean}>({
@@ -83,7 +85,7 @@ const Dashboard: React.FunctionComponent = () => {
                     icon={<ExternalLinkAltIcon />}
                     iconPosition="end"
                     component="a"
-                    href="https://docs.redhat.com/en/documentation/red_hat_hybrid_cloud_console/1-latest/html/integrating_the_red_hat_hybrid_cloud_console_with_third-party_applications/index"
+                    href="https://docs.redhat.com/en/documentation/red_hat_hybrid_cloud_console/1-latest"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -941,13 +943,6 @@ const Dashboard: React.FunctionComponent = () => {
                     </CardHeader>
                     <CardBody>
                       <Table variant="compact">
-                        <Thead>
-                          <Tr>
-                            <Th>Resource</Th>
-                            <Th>Type</Th>
-                            <Th>Description</Th>
-                          </Tr>
-                        </Thead>
                         <Tbody>
                           <Tr>
                             <Td>Getting Started with Alert Manager</Td>
@@ -1000,6 +995,25 @@ const Dashboard: React.FunctionComponent = () => {
                                 rel="noopener noreferrer"
                               >
                                 View documentation
+                              </Button>
+                            </Td>
+                          </Tr>
+                          <Tr>
+                            <Td>Configuring console event notifications in Slack</Td>
+                            <Td><Label color="green">Quick start</Label></Td>
+                            <Td>
+                              <Button
+                                variant="link"
+                                isInline
+                                icon={<ArrowRightIcon />}
+                                iconPosition="end"
+                                onClick={() => {
+                                  if (helpPanelContext) {
+                                    helpPanelContext.openHelpPanelWithTab('Configuring console event notifications in Slack');
+                                  }
+                                }}
+                              >
+                                Begin quick start
                               </Button>
                             </Td>
                           </Tr>
